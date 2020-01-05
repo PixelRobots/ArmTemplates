@@ -171,6 +171,7 @@
         "networkProfile": {
           "loadBalancerSku": "standard",
           "networkPlugin": "azure",
+          "networkPolicy": "azure",
           "serviceCidr": "10.0.0.0/16",
           "dnsServiceIp": "10.0.0.10",
           "dockerBridgeCidr": "172.17.0.1/16"
