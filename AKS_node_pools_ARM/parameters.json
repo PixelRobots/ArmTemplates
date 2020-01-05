@@ -1,0 +1,61 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": {
+            "value": ""
+        },
+        "kubernetesVersion": {
+            "value": ""
+        },
+        "agentPoolProfiles": {
+            "value": [
+              {
+                "nodeCount": 3,
+                "nodeVmSize": "Standard_D2_v3",
+                "availabilityZones": [
+                  "1",
+                  "2",
+                  "3"
+                ],
+                "enableAutoScaling": true,
+                "maxCount": 10,
+                "minCount": 3
+              }
+            ]
+        },
+        "workspaceResourceGroup": {
+            "value": ""
+        },
+        "workspaceName": {
+            "value": ""
+        },
+        "vnetResourceGroupName": {
+            "value": ""
+        },
+        "vnetName": {
+            "value": ""
+        },
+        "vnetSubnetName": {
+            "value": ""
+        },
+        "servicePrincipalClientId": {
+            "value": ""
+        },
+        "servicePrincipalClientSecret": {
+            "value": ""
+        },
+        "aadClientAppId": {
+            "value": ""
+        },
+        "aadServerAppId": {
+            "value": ""
+        },
+        "aadServerAppSecret": {
+            "value": ""
+        },
+        "aadTenantId": {
+            "value": ""
+        }
+      }
+}
