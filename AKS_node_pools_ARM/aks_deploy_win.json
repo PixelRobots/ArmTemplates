@@ -2,12 +2,18 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "name": {
+    "Clustername": {
       "type": "string",
       "metadata": {
         "description": "AKS cluster name"
       }
     },
+    "poolname": {
+       "type": "string",
+       "metadata": {
+         "description": "Node pool name"
+      }
+    },  
     "kubernetesVersion": {
       "type": "string",
       "metadata": {
@@ -15,28 +21,42 @@
       },
       "defaultValue": "1.16.7"
     },
-    "agentPoolProfiles": {
-      "type": "array",
-      "metadata": {
-        "description": "Define one or multiple node pools"
+      "agentPoolProfiles": {
+        "type": "array",
+        "metadata": {
+          "description": "Define one or multiple node pools"
+        },
+        "defaultValue": [
+          {
+            "nodeCount": 1,
+            "nodeVmSize": "Standard_D2_v3",
+            "nodeOsType": "linux",
+            "availabilityZones": [
+              "1",
+              "2",
+              "3"
+            ],
+            "enableAutoScaling": true,
+            "maxCount": 6,
+            "minCount": 3,
+            "taints": null
+          },
+          {
+            "nodeCount": 1,
+            "nodeVmSize": "Standard_D2_v3",
+            "nodeOsType": "Windows",
+            "availabilityZones": [
+              "1",
+              "2",
+              "3"
+            ],
+            "enableAutoScaling": true,
+            "maxCount": 6,
+            "minCount": 3,
+            "taints": null
+          }
+        ]
       },
-      "defaultValue": [
-        {
-          "nodeCount": 3,
-          "nodeVmSize": "Standard_D2_v3",
-          "nodeOsType": "Linux",
-          "availabilityZones": [
-            "1",
-            "2",
-            "3"
-          ],
-          "enableAutoScaling": true,
-          "maxCount": 10,
-          "minCount": 3,
-          "taints": null
-        }
-      ]
-    },
     "workspaceResourceGroup": {
       "type": "string",
       "metadata": {
@@ -92,23 +112,23 @@
       "workspaceId": "[resourceId(parameters('workspaceResourceGroup'),'Microsoft.OperationalInsights/workspaces',parameters('workspaceName'))]"
     },
     "outputs": {
-      "resourceId": "[resourceId('Microsoft.ContainerService/managedClusters/',parameters('name'))]"
+      "resourceId": "[resourceId('Microsoft.ContainerService/managedClusters/',parameters('Clustername'))]"
     }
   },
   "resources": [
     {
       "apiVersion": "[variables('apiVersion').aks]",
       "type": "Microsoft.ContainerService/managedClusters",
-      "name": "[parameters('name')]",
+      "name": "[parameters('Clustername')]",
       "location": "[resourceGroup().location]",
       "identity": {
            "type": "SystemAssigned"
         },
       "properties": {
-        "nodeResourceGroup": "[concat(parameters('name'),'-worker')]",
+        "nodeResourceGroup": "[concat(parameters('Clustername'),'-worker')]",
         "kubernetesVersion": "[parameters('kubernetesVersion')]",
         "enableRBAC": true,
-        "dnsPrefix": "[parameters('name')]",
+        "dnsPrefix": "[parameters('Clustername')]",
         "addonProfiles": {
           "kubeDashboard": {
             "enabled": false
@@ -125,7 +145,7 @@
             "name": "agentPoolProfiles",
             "count": "[length(parameters('agentPoolProfiles'))]",
             "input": {
-              "name": "[concat('pool',add(copyIndex('agentPoolProfiles'),1))]",
+              "name": "[concat(parameters('poolname'),add(copyIndex('agentPoolProfiles'),1))]",
               "maxPods": 250,
               "osDiskSizeGB": 128,
               "count": "[parameters('agentPoolProfiles')[copyIndex('agentPoolProfiles')].nodeCount]",
@@ -159,7 +179,7 @@
   "outputs": {
     "name": {
       "type": "string",
-      "value": "[parameters('name')]"
+      "value": "[parameters('Clustername')]"
     },
     "resourceId": {
       "type": "string",
