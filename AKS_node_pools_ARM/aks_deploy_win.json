@@ -28,7 +28,7 @@
         },
         "defaultValue": [
           {
-            "nodeCount": 1,
+            "nodeCount": 2,
             "nodeVmSize": "Standard_D2_v3",
             "nodeOsType": "Linux",
             "availabilityZones": [
@@ -38,7 +38,7 @@
             ],
             "enableAutoScaling": true,
             "maxCount": 6,
-            "minCount": 1,
+            "minCount": 2,
             "taints": null
           },
           {
