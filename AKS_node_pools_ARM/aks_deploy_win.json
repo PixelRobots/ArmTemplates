@@ -53,7 +53,9 @@
             "enableAutoScaling": true,
             "maxCount": 6,
             "minCount": 1,
-            "taints": null
+            "taints": [
+              "kubernetes.io/os=windows:NoSchedule"
+            ]
           }
         ]
       },
