@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-08-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "Clustername": {
@@ -19,7 +19,7 @@
       "metadata": {
         "description": "Kubernetes version"
       },
-      "defaultValue": "1.16.7"
+      "defaultValue": "1.16.9"
     },
       "agentPoolProfiles": {
         "type": "array",
@@ -28,7 +28,7 @@
         },
         "defaultValue": [
           {
-            "nodeCount": 2,
+            "nodeCount": 3,
             "nodeVmSize": "Standard_D2_v3",
             "nodeOsType": "Linux",
             "availabilityZones": [
@@ -37,13 +37,13 @@
               "3"
             ],
             "enableAutoScaling": true,
-            "maxCount": 6,
-            "minCount": 2,
+            "maxCount": 10,
+            "minCount": 3,
             "taints": null
           },
           {
             "nodeCount": 1,
-            "nodeVmSize": "Standard_D2_v3",
+            "nodeVmSize": "Standard_D4s_v3",
             "nodeOsType": "Windows",
             "availabilityZones": [
               "1",
@@ -51,7 +51,7 @@
               "3"
             ],
             "enableAutoScaling": true,
-            "maxCount": 6,
+            "maxCount": 20,
             "minCount": 1,
             "taints": [
               "kubernetes.io/os=windows:NoSchedule"

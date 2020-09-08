@@ -6,23 +6,7 @@
             "value": ""
         },
         "kubernetesVersion": {
-            "value": ""
-        },
-        "agentPoolProfiles": {
-            "value": [
-              {
-                "nodeCount": 3,
-                "nodeVmSize": "Standard_D2_v3",
-                "availabilityZones": [
-                  "1",
-                  "2",
-                  "3"
-                ],
-                "enableAutoScaling": true,
-                "maxCount": 10,
-                "minCount": 3
-              }
-            ]
+            "value": "1.17.7"
         },
         "workspaceResourceGroup": {
             "value": ""

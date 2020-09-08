@@ -105,7 +105,7 @@
   },
   "variables": {
     "apiVersion": {
-      "aks": "2019-08-01"
+      "aks": "2020-03-02"
     },
     "agentPoolProfiles": {
       "vnetSubnetId": "[concat(resourceId(parameters('vnetResourceGroupName'),'Microsoft.Network/virtualNetworks',parameters('vnetName')),'/subnets/',parameters('vnetSubnetName'))]"
